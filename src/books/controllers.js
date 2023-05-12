@@ -67,11 +67,26 @@ const deleteBook = async (req, res) => {
     }
 }
 
+//deletes all entries from the book list
+const deleteAllBooks = async (req, res) => {
+    try {
+        const deleteAllBooks = await Book.destroy({
+            where: {},
+            default: true
+        })
+        res.status(201).json({message: "Success", books: deleteAllBooks})
+    } catch (error) {
+        console.log(error)
+        res.status(501).json({errorMessage: error.message, error: error});
+    }
+}
+
 
 //exports the above functions so they can be accessed.
 module.exports = {
     addBook,
     getAllBooks,
     updateBook,
-    deleteBook
+    deleteBook,
+    deleteAllBooks
 }
