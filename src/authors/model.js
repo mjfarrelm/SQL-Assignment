@@ -12,20 +12,22 @@ const connection = require("../db/connections")
 //access connection to create a book model using sequelise syntax ('define')
 
 //NOTE: Sequelize automatically pluralises, so always use "Book" rather than "Books"
-const Book = connection.define("Book", {
-    title: {
+
+const Author = connection.define("Author", {
+    firstName: {
         type:DataTypes.STRING,
         allowNull: false,
-        unique: true
-    },
-    author: {
-        type:DataTypes.STRING
-    },
-    genre:{
-        type:DataTypes.STRING
-    }
+        },
+        initial: {
+        type:DataTypes.STRING,
+        allowNull: true,
+        },
+    surname: {
+        type:DataTypes.STRING,
+        allowNull: false,
+        }
 })
 
 
 //Exports the above code so it can process the layout of the Book table as defined above (Lines 15-27).
-module.exports = Book;
+module.exports = Author;

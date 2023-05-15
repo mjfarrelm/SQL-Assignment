@@ -3,7 +3,9 @@
 require("dotenv").config()
 const express = require("express")
 const Book = require("./books/model")
+const Author = require("./authors/model")
 const bookRouter = require("./books/routes")
+const authorRouter = require("./authors/routes")
 const port = 5001
 const app = express()
 
@@ -14,7 +16,9 @@ app.use(express.json())
 //sync tables on the database &/ or create new one if one doesn't already exist.
 const syncTables = () =>{
     Book.sync()
+    Author.sync()
 }
+
 
 //route to check whether the API is functioining correctly. Response sent in JSON via ThunderClient.
 app.get("/health", (req, res) =>{
@@ -29,4 +33,4 @@ app.listen(port, ()=>{
 
 
 //takes the bookRouter imported above (line 6) and links it to the routes file so the request can be succesfully handled 
-app.use(bookRouter)
+app.use(bookRouter, authorRouter)
